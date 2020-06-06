@@ -68,8 +68,7 @@ class PointsController {
 
     try {
       const point = {
-        image:
-          "https://images.unsplash.com/photo-1591388783682-1609c4bcd8cb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+        image: req.file.filename,
         name,
         email,
         whatsapp,
