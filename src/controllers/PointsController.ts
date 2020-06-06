@@ -46,7 +46,7 @@ class PointsController {
 
     const serializedPoint = {
       ...point,
-      image_url: `http://192.168.0.109:3333/uploads/${point.image}`,
+      image_url: `https://e-coleta-app.herokuapp.com/uploads/${point.image}`,
     };
 
     return res.json({ point: serializedPoint, items });
@@ -64,34 +64,38 @@ class PointsController {
       items,
     } = req.body;
 
-    const trx = await knex.transaction();
+    try {
+      const trx = await knex.transaction();
 
-    const insertedIds = await trx("points").insert({
-      image: req.file.filename,
-      name,
-      email,
-      whatsapp,
-      latitude,
-      longitude,
-      city,
-      uf,
-    });
-
-    const point_id = insertedIds[0];
-
-    const pointItems = items
-      .split(",")
-      .map((item: string) => Number(item.trim()))
-      .map((item_id: Number) => {
-        return {
-          item_id,
-          point_id,
-        };
+      const insertedIds = await trx("points").insert({
+        image: req.file.filename,
+        name,
+        email,
+        whatsapp,
+        latitude,
+        longitude,
+        city,
+        uf,
       });
 
-    await trx("point_items").insert(pointItems);
+      const point_id = insertedIds[0];
 
-    await trx.commit();
+      const pointItems = items
+        .split(",")
+        .map((item: string) => Number(item.trim()))
+        .map((item_id: Number) => {
+          return {
+            item_id,
+            point_id,
+          };
+        });
+
+      await trx("point_items").insert(pointItems);
+
+      await trx.commit();
+    } catch (error) {
+      console.error("ERRO on create new point", error);
+    }
 
     return res.json({ success: true });
   }
