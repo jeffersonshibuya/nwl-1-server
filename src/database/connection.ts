@@ -11,13 +11,13 @@ import path from "path";
 
 const connection = knex({
   client: "pg",
-  connection: process.env.DATABASE_URL,
-  searchPath: ["knex", "public"],
-  // connection: {
-  //   database: "ecoleta",
-  //   user: "postgres",
-  //   password: "docker",
-  // },
+  // connection: process.env.DATABASE_URL,
+  // searchPath: ["knex", "public"],
+  connection: {
+    database: "ecoleta",
+    user: "postgres",
+    password: "docker",
+  },
   useNullAsDefault: true,
 });
 

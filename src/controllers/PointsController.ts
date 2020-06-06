@@ -64,11 +64,12 @@ class PointsController {
       items,
     } = req.body;
 
-    try {
-      const trx = await knex.transaction();
+    const trx = await knex.transaction();
 
-      const insertedIds = await trx("points").insert({
-        image: req.file.filename,
+    try {
+      const point = {
+        image:
+          "https://images.unsplash.com/photo-1591388783682-1609c4bcd8cb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
         name,
         email,
         whatsapp,
@@ -76,7 +77,9 @@ class PointsController {
         longitude,
         city,
         uf,
-      });
+      };
+
+      const insertedIds = await trx("points").insert(point, "id");
 
       const point_id = insertedIds[0];
 
@@ -93,11 +96,12 @@ class PointsController {
       await trx("point_items").insert(pointItems);
 
       await trx.commit();
+      return res.json({ success: true });
     } catch (error) {
       console.error("ERRO on create new point", error);
+      trx.rollback();
+      return res.json({ error: error });
     }
-
-    return res.json({ success: true });
   }
 }
 
