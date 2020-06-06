@@ -15,8 +15,7 @@ app.use("/uploads", express.static(path.resolve(__dirname, "..", "uploads")));
 
 app.use(errors());
 
-app.listen(3333, () => {
-  console.log("App running on port: 3333");
-});
+const PORT = process.env.PORT || "3000";
+app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
 
 export default app;
