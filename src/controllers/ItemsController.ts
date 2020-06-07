@@ -15,7 +15,7 @@ class ItemsController {
       return {
         id: item.id,
         title: item.title,
-        image_url: `${img_url}/${item.image}`,
+        image_url: `${img_url}/uploads/${item.image}`,
       };
     });
 
