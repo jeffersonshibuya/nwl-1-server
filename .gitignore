@@ -2,5 +2,5 @@ node_modules
 
 !uploads/.gitkeep
 dist
-
+.env
 *.sqlite
