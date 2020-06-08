@@ -22,6 +22,8 @@ class PointsController {
     const serializedPoints = points.map((point) => {
       return {
         ...point,
+        latitude: Number(point.latitude),
+        longitude: Number(point.longitude),
         image_url: `${process.env.HOST}/uploads/${point.image}`,
       };
     });
