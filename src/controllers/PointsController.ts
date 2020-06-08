@@ -50,6 +50,8 @@ class PointsController {
 
     const serializedPoint = {
       ...point,
+      latitude: Number(point.latitude),
+      longitude: Number(point.longitude),
       image_url: `https://e-coleta-app.herokuapp.com/uploads/${point.image}`,
     };
 
