@@ -7,8 +7,6 @@ class ItemsController {
   async index(req: Request, res: Response) {
     const img_url = process.env.HOST;
 
-    console.log(img_url);
-
     const items = await knex("items").select("*");
 
     const serializedItems = items.map((item) => {

@@ -7,9 +7,11 @@ class PointsController {
   async index(req: Request, res: Response) {
     const { city, uf, items } = req.query;
 
-    const parsedItems = String(items)
-      .split(",")
-      .map((item) => Number(item.trim()));
+    const parsedItems = items
+      ? String(items)
+          .split(",")
+          .map((item) => Number(item.trim()))
+      : [];
 
     const points = await knex("points")
       .join("point_items", "points.id", "=", "point_items.point_id")
@@ -52,8 +54,8 @@ class PointsController {
       ...point,
       latitude: Number(point.latitude),
       longitude: Number(point.longitude),
-      // image_url: `http://192.168.1.65:3333/uploads/${point.image}`,
-      image_url: `https://e-coleta-app.herokuapp.com/uploads/${point.image}`,
+      // image_url: `http://192.168.0.109:3333/uploads/${point.image}`,
+      image_url: `${process.env.HOST}/uploads/${point.image}`,
     };
 
     return res.json({ point: serializedPoint, items });
