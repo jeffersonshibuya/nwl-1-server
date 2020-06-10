@@ -12,7 +12,7 @@
     "test": "jest src",
     "watch-node": "nodemon dist/server.js",
     "watch-ts": "tsc -w",
-    "dev": "cross-env NODE_ENV=development && ts-node-dev --transpileOnly --ignore-watch node_modules src/server.ts",
+    "dev": "cross-env NODE_ENV=development && ts-node-dev --transpileOnly src/server.ts",
     "production": "cross-env NODE_ENV=production && ts-node-dev --transpileOnly --ignore-watch node_modules src/server.ts",
     "knex:seed": "knex --knexfile knexfile.ts seed:run",
     "knex:migrate": "knex --knexfile knexfile.ts migrate:latest"

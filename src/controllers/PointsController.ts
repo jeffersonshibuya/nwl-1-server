@@ -52,6 +52,7 @@ class PointsController {
       ...point,
       latitude: Number(point.latitude),
       longitude: Number(point.longitude),
+      // image_url: `http://192.168.1.65:3333/uploads/${point.image}`,
       image_url: `https://e-coleta-app.herokuapp.com/uploads/${point.image}`,
     };
 
@@ -101,7 +102,7 @@ class PointsController {
       await trx("point_items").insert(pointItems);
 
       await trx.commit();
-      return res.json({ success: true });
+      return res.json({ success: true, point });
     } catch (error) {
       console.error("ERRO on create new point", error);
       trx.rollback();
