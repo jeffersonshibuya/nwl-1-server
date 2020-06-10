@@ -6,7 +6,7 @@
   "scripts": {
     "build-ts": "tsc",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "postinstall": "knex:migrate && knex:seed && npm run build-ts",
+    "postinstall": "npm run build-ts",
     "start": "npm run serve",
     "serve": "node dist/server.js",
     "test": "jest src",
